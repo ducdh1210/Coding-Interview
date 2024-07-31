@@ -32,3 +32,34 @@ class Solution(object):
                 return index
 
         return -1
+
+
+# Write tests based on the comments above
+solution = Solution()
+
+# Test case 1
+s1 = "leetcode"
+print("Test case 1:")
+print("Input: s =", s1)
+output = solution.firstUniqChar(s1)
+print("Output:", output)
+print("Expected: 0")
+print()
+
+# Test case 2
+s2 = "loveleetcode"
+print("Test case 2:")
+print("Input: s =", s2)
+output = solution.firstUniqChar(s2)
+print("Output:", output)
+print("Expected: 2")
+print()
+
+# Test case 3
+s3 = "aabb"
+print("Test case 3:")
+print("Input: s =", s3)
+output = solution.firstUniqChar(s3)
+print("Output:", output)
+print("Expected: -1")
+print()
