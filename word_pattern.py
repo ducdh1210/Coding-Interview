@@ -36,7 +36,6 @@ class Solution(object):
                 mapper[p] = s
         return True
 
-
 a = Solution()
 print(a.wordPattern("abba", "dog cat cat dog"))
 print(a.wordPattern("abba", "dog cat cat fish"))
