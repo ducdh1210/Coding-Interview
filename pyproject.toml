@@ -16,10 +16,25 @@ openpyxl = "^3.1.5"
 nbformat = ">=4.2.0"
 seaborn = "^0.13.2"
 nbconvert = "^7.16.4"
+scikit-learn = "^1.5.1"
+yfinance = "^0.2.41"
+pmdarima = "^2.0.4"
+torch = [
+    { url = "https://download.pytorch.org/whl/cpu/torch-2.2.2-cp312-none-macosx_10_9_x86_64.whl", markers = "sys_platform == 'darwin'"},
 
-
+]
+pybind11 = "^2.13.1"
 [tool.poetry.group.dev.dependencies]
 notebook = "^7.2.1"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "torch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]
