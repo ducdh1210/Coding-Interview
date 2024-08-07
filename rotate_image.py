@@ -41,8 +41,16 @@ class Solution(object):
             l += 1
             r -= 1
         # transpose
+        print(matrix)
+        print("-----------------")
         for i in range(len(matrix)):
+            print("======================>")
+            print("i:", i)
             for j in range(i):
+                print("*****************")
+                print("j:", j)
+                print("matrix[i][j]:", matrix[i][j])
+                print("matrix[j][i]:", matrix[j][i])
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
         return matrix
 
@@ -50,5 +58,5 @@ class Solution(object):
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 print(Solution().rotate_2(matrix))
 
-matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]
-print(Solution().rotate_2(matrix))
+# matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]
+# print(Solution().rotate_2(matrix))
