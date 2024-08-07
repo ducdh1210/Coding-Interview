@@ -1,0 +1,52 @@
+# Clone the repository
+git clone https://github.com/coderbyte-org/big-o
+
+# Move into the project directory
+cd big-o
+
+# Create and switch to a new branch called feat/my-feature-1
+git checkout -b feat/my-feature-1
+
+# Create a new file titled file.txt and add initial content
+echo "This is some initial content for the file." > file.txt
+
+# Add the file to the staging area
+git add file.txt
+
+# Commit the changes with the message
+git commit -m "docs: add file.txt"
+
+# Create and switch to a new branch called feat/my-feature-2
+git checkout -b feat/my-feature-2
+
+# Modify file.txt by adding new content
+echo "This is some new content for the file." >> file.txt
+
+# Add the file to the staging area
+git add file.txt
+
+# Commit the changes with the message
+git commit -m "docs: update file.txt"
+
+# Switch back to feat/my-feature-1
+git checkout feat/my-feature-1
+
+# Modify file.txt to change the initial content
+echo "This is some updated initial content for the file." > file.txt
+
+# Merge feat/my-feature-2
+git merge feat/my-feature-2
+
+# Resolve the merge conflict by keeping changes from feat/my-feature-2
+# (Open file.txt in an editor, resolve the conflict, and add a comment)
+echo "# __define-ocg__" >> file.txt
+echo "varOcg = 'This is some new content for the file.'" >> file.txt
+
+# Add the resolved file to the staging area
+git add file.txt
+
+# Commit the merge resolution
+git commit -m "Resolved merge conflict by keeping changes from feat/my-feature-2"
+
+# Print the results
+git show HEAD:file.txt && git show --pretty='' HEAD^1
