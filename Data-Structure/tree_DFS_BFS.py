@@ -74,7 +74,6 @@ class BinaryTree:
         print()  # New line for formatting
 
     # BFS Traversal
-
     def bfs(self):
         """
         Breadth-First Search: Level Order Traversal
@@ -113,8 +112,8 @@ if __name__ == "__main__":
     tree.root.right = TreeNode(3)
     tree.root.left.left = TreeNode(4)
     tree.root.left.right = TreeNode(5)
-    tree.root.right.right = TreeNode(6)
-    tree.root.left.right.left = TreeNode(7)
+    # tree.root.right.right = TreeNode(6)
+    # tree.root.left.right.left = TreeNode(7)
 
     print("DFS Preorder Traversal:")
     tree.dfs_preorder()
