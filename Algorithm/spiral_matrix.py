@@ -6,45 +6,41 @@
 # Input: matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 # Output: [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]
 
+from typing import Literal
+
 
 class Solution:
     def spiralOrder(self, matrix: list[list[int]]) -> list[int]:
-        # Calculate the total number of rows and columns
-        rows, cols = len(matrix), len(matrix[0])
+        result = []  # Initialize an empty list to store the spiral order elements
 
-        # Set up pointers to traverse the matrix
-        row, col = 0, -1
+        rows, cols = len(matrix), len(matrix[0])  # Get the number of rows and columns
+        row_idx, col_idx = 0, -1  # Start indices for the current position in the matrix
+        direction: Literal[-1, 1] = (
+            1  # Direction indicator (1 for right/down, -1 for left/up)
+        )
 
-        # Set the initial direction to 1 for moving left to right
-        direction = 1
-
-        # Create an array to store the elements in spiral order
-        result = []
-
-        # Traverse the matrix in a spiral order
-        while rows > 0 and cols > 0:
-            # Move horizontally in one of two directions:
-            #   1. Left to right (if direction == 1)
-            #   2. Right to left (if direction == -1)
-            # Increment the col pointer to move horizontally
+        while (cols > 0) and (
+            rows > 0
+        ):  # Continue until there are no rows or columns left
+            # Traverse the current row from left to right at first, direction controlled by direction variable
             for _ in range(cols):
-                col += direction
-                result.append(matrix[row][col])
-            rows -= 1
+                col_idx += direction  # Move to the next column
+                value = matrix[row_idx][col_idx]  # Get the current value
+                print(f"Row Index: {row_idx}, Column Index: {col_idx}, Value: {value}")
+                result.append(value)  # Append the value to the result list
+            rows -= 1  # Decrease the number of rows left to process
 
-            # Move vertically in one of two directions:
-            #   1. Top to bottom (if direction == 1)
-            #   2. Bottom to top (if direction == -1)
-            # Increment the row pointer to move vertically
+            # Traverse the current column from top to bottom at first, direction controlled by direction variable
             for _ in range(rows):
-                row += direction
-                result.append(matrix[row][col])
-            cols -= 1
+                row_idx += direction  # Move to the next row
+                value = matrix[row_idx][col_idx]  # Get the current value
+                print(f"Row Index: {row_idx}, Column Index: {col_idx}, Value: {value}")
+                result.append(value)  # Append the value to the result list
+            cols -= 1  # Decrease the number of columns left to process
 
-            # Flip the direction for the next traversal
-            direction *= -1
+            direction *= -1  # Change direction for the next traversal
 
-        return result
+        return result  # Return the final spiral order list
 
 
 # Test cases
