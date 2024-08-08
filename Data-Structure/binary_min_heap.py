@@ -1,77 +1,128 @@
-class MinHeap:
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+        self.parent = None
+
+
+class TreeMinHeap:
     def __init__(self):
-        self.heap = []
+        self.root = None
+        self.last_node = None
+        self.size = 0
 
-    def parent(self, i):
-        return (i - 1) // 2
+    def insert(self, value):
+        new_node = TreeNode(value)
+        self.size += 1
 
-    def left_child(self, i):
-        return 2 * i + 1
+        if not self.root:
+            # If the heap is empty, the new node becomes the root
+            self.root = new_node
+            self.last_node = new_node
+        else:
+            # Find the position for the new node
+            parent = self._find_parent_of_last()
+            if not parent.left:
+                parent.left = new_node
+            else:
+                parent.right = new_node
+            new_node.parent = parent
+            self.last_node = new_node
 
-    def right_child(self, i):
-        return 2 * i + 2
+        # Restore the min heap property
+        self._heapify_up(new_node)
 
-    def swap(self, i, j):
-        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+    def _find_parent_of_last(self):
+        # Find the parent where the new node should be inserted
+        if self.size % 2 == 0:
+            return self.last_node.parent
+        current = self.last_node
+        while current == current.parent.right:
+            current = current.parent
+        if current.parent.left == current:
+            current = current.parent.left
+        while current.right:
+            current = current.right
+        return current
 
-    def insert(self, key):
-        self.heap.append(key)
-        self._heapify_up(len(self.heap) - 1)
+    def _heapify_up(self, node):
+        # Move the node up if it's smaller than its parent
+        while node.parent and node.value < node.parent.value:
+            node.value, node.parent.value = node.parent.value, node.value
+            node = node.parent
 
-    def _heapify_up(self, i):
-        parent = self.parent(i)
-        if i > 0 and self.heap[i] < self.heap[parent]:
-            self.swap(i, parent)
-            self._heapify_up(parent)
+    def delete_min(self):
+        if not self.root:
+            return None
 
-    def extract_min(self):
-        if len(self.heap) == 0:
-            raise IndexError("Heap is empty")
-        if len(self.heap) == 1:
-            return self.heap.pop()
-        min_val = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self._heapify_down(0)
-        return min_val
+        min_value = self.root.value
+        if self.size == 1:
+            self.root = None
+            self.last_node = None
+        else:
+            # Replace root with last node and remove last node
+            self.root.value = self.last_node.value
+            parent = self.last_node.parent
+            if parent.right == self.last_node:
+                parent.right = None
+            else:
+                parent.left = None
+            self.last_node = self._find_new_last()
 
-    def _heapify_down(self, i):
-        min_index = i
-        left = self.left_child(i)
-        right = self.right_child(i)
+            # Restore the min heap property
+            self._heapify_down(self.root)
 
-        if left < len(self.heap) and self.heap[left] < self.heap[min_index]:
-            min_index = left
-        if right < len(self.heap) and self.heap[right] < self.heap[min_index]:
-            min_index = right
+        self.size -= 1
+        return min_value
 
-        if min_index != i:
-            self.swap(i, min_index)
-            self._heapify_down(min_index)
+    def _find_new_last(self):
+        # Find the new last node after deletion
+        if self.size % 2 == 1:
+            return self.last_node.parent
+        current = self.last_node
+        while current == current.parent.left:
+            current = current.parent
+        current = current.parent.left
+        while current.right:
+            current = current.right
+        return current
 
-    def display(self):
-        print(self.heap)
+    def _heapify_down(self, node):
+        # Move the node down if it's larger than its children
+        while True:
+            smallest = node
+            if node.left and node.left.value < smallest.value:
+                smallest = node.left
+            if node.right and node.right.value < smallest.value:
+                smallest = node.right
+            if smallest == node:
+                break
+            node.value, smallest.value = smallest.value, node.value
+            node = smallest
+
+    def get_min(self):
+        # Return the minimum element (root) without removing it
+        return self.root.value if self.root else None
+
+    def is_empty(self):
+        # Check if the heap is empty
+        return self.size == 0
 
 
-# Test code
+# Example usage
 if __name__ == "__main__":
-    min_heap = MinHeap()
+    heap = TreeMinHeap()
 
-    print("Inserting elements into the min-heap:")
-    elements = [5, 3, 17, 10, 84, 19, 6, 22, 9]
-    for element in elements:
-        min_heap.insert(element)
-        print(f"Inserted: {element}")
-        min_heap.display()
+    # Insert elements
+    for elem in [3, 1, 6, 5, 2, 4]:
+        heap.insert(elem)
+    print("Heap after insertions. Min value:", heap.get_min())
 
-    print("\nExtracting minimum elements:")
-    for _ in range(len(elements)):
-        min_val = min_heap.extract_min()
-        print(f"Extracted min: {min_val}")
-        min_heap.display()
+    # Delete minimum
+    print("Deleted minimum:", heap.delete_min())
+    print("New min value:", heap.get_min())
 
-    print("\nIs heap empty?", len(min_heap.heap) == 0)
-
-    try:
-        min_heap.extract_min()
-    except IndexError as e:
-        print("\nError:", str(e))
+    # Insert more elements
+    heap.insert(0)
+    print("After inserting 0, new min value:", heap.get_min())
