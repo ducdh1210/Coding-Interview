@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",  // The currently open file
+            "console": "integratedTerminal",  // Use the integrated terminal for output
+            "justMyCode": true  // Debug only user-written code
+        }
+    ]
+}
