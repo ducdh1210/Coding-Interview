@@ -94,6 +94,21 @@ class BinaryTree:
                     queue.append(node.right)
             print()  # New line after each level
 
+    def height(self):
+        """
+        Calculate the height of the binary tree.
+        Height is defined as the number of edges in the longest path from the root to a leaf.
+        """
+
+        def calculate_height(node):
+            if not node:
+                return -1  # Return -1 for null nodes (height of empty tree)
+            left_height = calculate_height(node.left)  # Height of left subtree
+            right_height = calculate_height(node.right)  # Height of right subtree
+            return 1 + max(left_height, right_height)  # Return height of the tree
+
+        return calculate_height(self.root)  # Start from the root
+
 
 # Example usage and testing
 if __name__ == "__main__":
@@ -112,20 +127,22 @@ if __name__ == "__main__":
     tree.root.right = TreeNode(3)
     tree.root.left.left = TreeNode(4)
     tree.root.left.right = TreeNode(5)
-    # tree.root.right.right = TreeNode(6)
-    # tree.root.left.right.left = TreeNode(7)
+    tree.root.right.right = TreeNode(6)
+    tree.root.left.right.left = TreeNode(7)
 
-    print("DFS Preorder Traversal:")
-    tree.dfs_preorder()
+    print("Height of the tree:", tree.height())  # Output the height of the tree
 
-    print("\nDFS Inorder Traversal:")
-    tree.dfs_inorder()
+    # print("DFS Preorder Traversal:")
+    # tree.dfs_preorder()
 
-    print("\nDFS Postorder Traversal:")
-    tree.dfs_postorder()
+    # print("\nDFS Inorder Traversal:")
+    # tree.dfs_inorder()
 
-    print("\nDFS Iterative Traversal (Preorder):")
-    tree.dfs_iterative()
+    # print("\nDFS Postorder Traversal:")
+    # tree.dfs_postorder()
 
-    print("\nBFS Level Order Traversal:")
-    tree.bfs()
+    # print("\nDFS Iterative Traversal (Preorder):")
+    # tree.dfs_iterative()
+
+    # print("\nBFS Level Order Traversal:")
+    # tree.bfs()
