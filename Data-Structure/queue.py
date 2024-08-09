@@ -1,29 +1,36 @@
 # Queue: First-In-First-Out (FIFO) data structure
 class Queue:
+    # Initialize an empty queue
     def __init__(self):
-        self.items = []  # Initialize an empty queue
+        self.items = []
 
+    # Check if queue is empty
     def is_empty(self):
-        return len(self.items) == 0  # Check if queue is empty
+        return len(self.items) == 0
 
+    # Add item to the end of the queue
     def enqueue(self, item):
-        self.items.append(item)  # Add item to the end of the queue
+        self.items.append(item)
 
+    # Remove and return the first item
     def dequeue(self):
         if not self.is_empty():
-            return self.items.pop(0)  # Remove and return the first item
+            return self.items.pop(0)
         else:
             raise IndexError("Queue is empty")
 
+    # Return the first item without removing
     def front(self):
         if not self.is_empty():
-            return self.items[0]  # Return the first item without removing
+            return self.items[0]
         else:
             raise IndexError("Queue is empty")
 
+    # Return the number of items in the queue
     def size(self):
-        return len(self.items)  # Return the number of items in the queue
+        return len(self.items)
 
+    # Display the queue
     def display(self):
         print("Queue:", self.items)
 
