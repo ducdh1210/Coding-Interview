@@ -180,6 +180,32 @@ class BinarySearchTree:
             node.left, min_value, node.value
         ) and self._is_bst_recursive(node.right, node.value, max_value)
 
+    def find_nearest(self, target):
+        """Find the value in the BST nearest to the target."""
+        if not self.root:
+            return None  # Tree is empty
+
+        nearest = self.root.value  # Start with root as nearest
+        current = self.root
+
+        while current:
+            # Update nearest if current node is closer to target
+            if abs(current.value - target) < abs(nearest - target):
+                nearest = current.value
+
+            if target < current.value:
+                if not current.left:
+                    break  # No more left children, end search
+                current = current.left
+            elif target > current.value:
+                if not current.right:
+                    break  # No more right children, end search
+                current = current.right
+            else:
+                return current.value  # Exact match found
+
+        return nearest
+
 
 # Test the Binary Search Tree implementation
 if __name__ == "__main__":
@@ -217,3 +243,8 @@ if __name__ == "__main__":
     invalid_bst.root.right = Node(7)
     invalid_bst.root.left.right = Node(6)  # This makes it an invalid BST
     print("Is invalid BST?", invalid_bst.is_bst())
+
+    # Test find_nearest
+    print("Find nearest to 2.5:", bst.find_nearest(2.5))
+    print("Find nearest to 7.5:", bst.find_nearest(7.5))
+    print("Find nearest to 10:", bst.find_nearest(10))
