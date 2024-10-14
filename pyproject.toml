@@ -24,6 +24,10 @@ torch = [
 ]
 pybind11 = "^2.13.1"
 numpy = "^1.0.0"
+datasets = "^3.0.1"
+transformers = "^4.45.1"
+gensim = "^4.3.3"
+nltk = "^3.9.1"
 [tool.poetry.group.dev.dependencies]
 notebook = "^7.2.1"
 
