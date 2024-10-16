@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "product-sales",
+            "database": "${workspaceFolder:Coding-Interview}/SQL/product-sales/product_sales.db"
+        }
+    ]
+}
